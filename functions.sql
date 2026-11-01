@@ -1,19 +1,12 @@
-
--- ==========================================
--- PROJECT: RailSync
--- FILE: functions.sql
--- PURPOSE: Ticket Fare Calculation
--- ==========================================
-
 USE railsync;
+
+DROP FUNCTION IF EXISTS calculate_fare;
 
 DELIMITER $$
 
-CREATE FUNCTION calculate_fare(
-    p_train_id INT
-)
+CREATE FUNCTION calculate_fare(p_train_id INT)
 RETURNS DECIMAL(10,2)
-DETERMINISTIC
+NOT DETERMINISTIC
 READS SQL DATA
 BEGIN
     DECLARE v_fare DECIMAL(10,2);
@@ -24,11 +17,8 @@ BEGIN
     WHERE train_id = p_train_id;
 
     RETURN v_fare;
-
 END $$
 
 DELIMITER ;
 
--- ==========================================
--- END OF FARE FUNCTION
--- ==========================================
+SELECT calculate_fare(1) AS Ticket_Fare;
